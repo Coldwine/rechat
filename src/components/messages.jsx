@@ -3,20 +3,36 @@ import Message from './message';
 
 class Messages extends Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    convo: [{text: 'this is text', author: '@steedhelix'},
-            {text: 'this is some text', author: '@steedhelix'},
-            {text: 'this is more text', author: '@steedhelix'},
-            {text: 'this is other text', author: '@steedhelix'}]
+    super(props);
+    this.chat = props.chat;
+    this.state = {
+      convo: []
     };
+  }
+
+  componentDidMount() {
+    this.chat.watch().subscribe(
+      (messages) => {
+        let convo = messages.map(function(message) {
+          return message
+        });
+        this.setState({convo: convo});
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   render() {
     let msgsjsx = this.state.convo.map(function(message, i){
       return <Message msg={message} key={i} />
     });
-    return (<div className='container-fluid'> {msgsjsx} </div> );
+    return (
+      <div className='container-fluid'>
+        {msgsjsx}
+      </div>
+    );
   }
 }
 

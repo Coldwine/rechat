@@ -29475,17 +29475,17 @@
 	        null,
 	        _react2.default.createElement(
 	          'form',
-	          null,
+	          { className: 'form-inline' },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'center' },
 	            _react2.default.createElement(
 	              'button',
-	              { onClick: this.sendMessage.bind(this) },
-	              'Send Message'
+	              { className: 'btn btn-default', type: 'submit', onClick: this.sendMessage.bind(this) },
+	              'Nachricht senden'
 	            ),
-	            _react2.default.createElement('input', { onChange: this.handleChangeAuthor.bind(this) }),
-	            _react2.default.createElement('input', { onChange: this.handleChangeText.bind(this) })
+	            _react2.default.createElement('input', { className: 'form-control', type: 'text', placeholder: 'Name', onChange: this.handleChangeAuthor.bind(this) }),
+	            _react2.default.createElement('input', { className: 'form-control', type: 'text', placeholder: 'Nachricht', onChange: this.handleChangeText.bind(this) })
 	          )
 	        ),
 	        _react2.default.createElement(_messages2.default, { chat: chat })
@@ -31075,13 +31075,28 @@
 
 	    var _this = (0, _possibleConstructorReturn3.default)(this, (Messages.__proto__ || (0, _getPrototypeOf2.default)(Messages)).call(this, props));
 
+	    _this.chat = props.chat;
 	    _this.state = {
-	      convo: [{ text: 'this is text', author: '@steedhelix' }, { text: 'this is some text', author: '@steedhelix' }, { text: 'this is more text', author: '@steedhelix' }, { text: 'this is other text', author: '@steedhelix' }]
+	      convo: []
 	    };
 	    return _this;
 	  }
 
 	  (0, _createClass3.default)(Messages, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      this.chat.watch().subscribe(function (messages) {
+	        var convo = messages.map(function (message) {
+	          return message;
+	        });
+	        _this2.setState({ convo: convo });
+	      }, function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var msgsjsx = this.state.convo.map(function (message, i) {
@@ -31090,9 +31105,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container-fluid' },
-	        ' ',
-	        msgsjsx,
-	        ' '
+	        msgsjsx
 	      );
 	    }
 	  }]);

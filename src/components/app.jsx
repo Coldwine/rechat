@@ -37,11 +37,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <form>
+        <form className="form-inline">
           <div className='center'>
-            <button onClick={this.sendMessage.bind(this)}>Send Message</button>
-            <input onChange={this.handleChangeAuthor.bind(this)}></input>
-            <input onChange={this.handleChangeText.bind(this)}></input>
+            <button className="btn btn-default" type="submit" onClick={this.sendMessage.bind(this)}>Nachricht senden</button>
+            <input className="form-control" type="text" placeholder="Name" onChange={this.handleChangeAuthor.bind(this)}></input>
+            <input className="form-control" type="text" placeholder="Nachricht" onChange={this.handleChangeText.bind(this)}></input>
           </div>
         </form>
         <Messages chat={chat} />

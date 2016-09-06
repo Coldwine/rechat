@@ -4,3 +4,8 @@
   border-radius: 2px;
   padding: 10px;
 }
+
+button + input,
+input + input {
+  margin-left: 5px;
+}
